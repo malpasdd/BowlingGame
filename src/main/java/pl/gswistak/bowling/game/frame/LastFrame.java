@@ -4,29 +4,17 @@ import java.util.ArrayList;
 
 public class LastFrame extends AbstractFrame {
 
-    private static final int MAX_ROLLS_COUNT = 3;
+    private static final int ROLLS_COUNT_WITHOUT_BONUS = 2;
+    private static final int ROLLS_COUNT_WITH_BONUS = 3;
 
-    LastFrame(int index) {
+    public LastFrame(int index) {
         super(new ArrayList<>(), index);
     }
 
     @Override
     public boolean isCompleted() {
-        return getCurrentRollsCount() == getMaxRollsCount();
+        return (isStrike() || isSpare()) && getCurrentRollsCount() == ROLLS_COUNT_WITH_BONUS
+                || !(isStrike() || isSpare()) && getCurrentRollsCount() == ROLLS_COUNT_WITHOUT_BONUS;
     }
 
-    @Override
-    public boolean isSpare() {
-        return false;
-    }
-
-    @Override
-    public boolean isStrike() {
-        return false;
-    }
-
-    @Override
-    public int getMaxRollsCount() {
-        return MAX_ROLLS_COUNT;
-    }
 }

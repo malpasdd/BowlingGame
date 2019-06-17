@@ -12,21 +12,7 @@ public class NormalFrame extends AbstractFrame {
 
     @Override
     public boolean isCompleted() {
-        return getCurrentRollsCount() == getMaxRollsCount() || isStrike();
+        return getCurrentRollsCount() == MAX_ROLLS_COUNT || isStrike();
     }
 
-    @Override
-    public boolean isSpare() {
-        return getKnockedPins() == MAX_PINS && getCurrentRollsCount() == getMaxRollsCount();
-    }
-
-    @Override
-    public boolean isStrike() {
-        return getKnockedPins() == MAX_PINS && getCurrentRollsCount() == STRIKE_ROLLS_COUNT;
-    }
-
-    @Override
-    public int getMaxRollsCount() {
-        return MAX_ROLLS_COUNT;
-    }
 }

@@ -2,6 +2,8 @@ package pl.gswistak.bowling;
 
 import pl.gswistak.bowling.game.BowlingGame;
 
+import java.util.stream.IntStream;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -24,5 +26,11 @@ public class Main {
 
         int secondGameScore = secondGame.calculateScore();
         System.out.println(String.format("score: %s", secondGameScore));
+
+        BowlingGame thirdGame = new BowlingGame();
+        IntStream.range(0, 12).forEach(i -> thirdGame.roll(10));
+        int thirdGameScore = thirdGame.calculateScore();
+        System.out.println(String.format("score: %s", thirdGameScore));
+
     }
 }

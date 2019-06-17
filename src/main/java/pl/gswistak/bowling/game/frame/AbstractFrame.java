@@ -9,18 +9,24 @@ import java.util.List;
 @Getter
 public abstract class AbstractFrame {
 
-    static final int MAX_PINS = 10;
-    static final int STRIKE_ROLLS_COUNT = 1;
+    private static final int MAX_PINS = 10;
+    private static final int FIRST_ROLL_INDEX = 0;
+    private static final int SECOND_ROLL_INDEX = 1;
     private List<Integer> rolls;
     private int index;
 
     public abstract boolean isCompleted();
 
-    public abstract boolean isSpare();
+    public boolean isSpare() {
+        int firstRollScore = getFirstRollScore();
+        int secondRollScore = getSecondRollScore();
+        return !isStrike() && firstRollScore + secondRollScore == MAX_PINS;
 
-    public abstract boolean isStrike();
+    }
 
-    public abstract int getMaxRollsCount();
+    public boolean isStrike() {
+        return getFirstRollScore() == MAX_PINS;
+    }
 
     int getCurrentRollsCount() {
         return rolls.size();
@@ -32,17 +38,18 @@ public abstract class AbstractFrame {
     }
 
     public void addRoll(int pins) {
-        assert pins <= MAX_PINS;
         rolls.add(pins);
     }
 
-    public int getBonusRollsCount() {
-        if (this.isStrike()) {
-            return 2;
-        } else if (this.isSpare()) {
-            return 1;
-        } else {
-            return 0;
-        }
+    private int getFirstRollScore() {
+        return getRollScore(FIRST_ROLL_INDEX);
+    }
+
+    private int getSecondRollScore() {
+        return getRollScore(SECOND_ROLL_INDEX);
+    }
+
+    private int getRollScore(int rollIndex) {
+        return rollIndex < rolls.size() ? rolls.get(rollIndex) : 0;
     }
 }
